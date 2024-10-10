@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>{{ recipe.title }}</h2>
+        <p>{{ recipe.description }}</p>
+        <a href="{% url 'recipe_list' recipe.category.id %}">Back to Recipes</a>
+        <a href="{% url 'category_list' %}">Back to Categories</a>
+    </div>
+{% endblock %}
