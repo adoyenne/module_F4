@@ -8,22 +8,24 @@ const CategoryList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  const fetchCategories = async () => {
-  try {
-    const response = await axios.get('http://localhost:8000/api/categories/');
-    console.log('Fetched categories:', response.data);
-    setCategories(response.data);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  }
-  };
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/categories/');
+        console.log('Fetched categories:', response.data);
+        setCategories(response.data);
+        setLoading(false);  // Снимаем флаг загрузки после получения данных
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setError(error);
+        setLoading(false);  // Снимаем флаг загрузки в случае ошибки
+      }
+    };
 
     fetchCategories();
   }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching categories: {error.message}</div>;
-
 
   if (!Array.isArray(categories)) {
     return <div>No categories found.</div>;
